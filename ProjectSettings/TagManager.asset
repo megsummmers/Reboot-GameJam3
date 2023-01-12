@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - floor
+  - player
+  - corpse
+  - door
+  - plate
+  - Music
+  - Pdoor
+  - Moved
+  - PMoved
+  - converter
+  - plateDown
+  - panel
+  - panelChanged
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Ground
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Background
+    uniqueID: 590973855
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: InteractObjs
+    uniqueID: 1045954101
+    locked: 0
+  - name: TerrainOverlay
+    uniqueID: 3579230957
+    locked: 0
+  - name: Overlay
+    uniqueID: 1299517121
+    locked: 0
+  - name: Player
+    uniqueID: 735456113
+    locked: 0
