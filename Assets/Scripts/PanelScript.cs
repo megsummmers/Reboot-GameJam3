@@ -25,7 +25,7 @@ public class PanelScript : MonoBehaviour
     {
       //take a charge from the panel
       if(Input.GetKeyDown("e") && panelInteract == true){
-        if(panelCharges >= 1){
+        if(panelCharges >= 1 && player.charges < 3){
           player.charges += 1;
           panelCharges -= 1;
           GetComponent<AudioSource>().Play();
