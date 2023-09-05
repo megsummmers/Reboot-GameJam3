@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
   private GameObject plate;
   private GameObject corpseTouch;
   [SerializeField] private LayerMask jumpableGround;
+    public Tilemap tilemap;
 
   private GameObject[] doorsDown;
   private GameObject[] corpses;
@@ -33,8 +35,10 @@ public class PlayerMovement : MonoBehaviour
   public SpriteRenderer wrench1;
   public SpriteRenderer wrench2;
   private bool interactCorpse = false;
+    private bool playerMove = true;
   private int chargeNum;
   public int charges = 3;
+//private float jumpHeight = Screen.height / 3;
   private int converters = 0;
   
     // Start is called before the first frame update
@@ -43,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
       rb = GetComponent<Rigidbody2D>();
       coll = GetComponent<BoxCollider2D>();
       anim = GetComponent<Animator>();
+        playerMove = true;
 
       //add specific charge amount here
       chargeNum = charges;
@@ -51,38 +56,55 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      //-------- PLAYER CONTROL -----------
-      float axisX = Input.GetAxisRaw("Horizontal");
-      rb.velocity = new Vector2(axisX * 7f, rb.velocity.y);
-      if(Input.GetButtonDown("Jump") && IsGrounded()){
-        //spriteRenderer.sprite = kbotR;
-        // anim.SetBool("IsRunning", false);
-        // anim.SetBool("IsJumping", true);
-        rb.velocity = new Vector2(rb.velocity.x, 12f);
-        jump.Play();
-      }
-      //-------- WALK CHANGE PIC -----------
-      if(Input.GetKeyDown("a") || Input.GetKeyDown(KeyCode.LeftArrow)){
-        //spriteRenderer.sprite = kbotR;
-        spriteRenderer.flipX = true;
-        anim.SetBool("IsRunning", true);
-        anim.SetBool("IsJumping", false);
-        //left
-      } else if(Input.GetKeyDown("d") || Input.GetKeyDown(KeyCode.RightArrow)){
-        //spriteRenderer.sprite = kbotR;
-        spriteRenderer.flipX = false;
-        anim.SetBool("IsRunning", true);
-        anim.SetBool("IsJumping", false);
-        //right
-      } else if(Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow)){
-        spriteRenderer.sprite = idle;
-        anim.SetBool("IsRunning", false);
-        anim.SetBool("IsJumping", true);
-      } else if(!Input.anyKey){
-        spriteRenderer.sprite = idle;
-        anim.SetBool("IsRunning", false);
-        anim.SetBool("IsJumping", false);
-      }
+        //-------- PLAYER CONTROL -----------
+        if (playerMove)
+        {
+            float axisX = Input.GetAxisRaw("Horizontal");
+            rb.velocity = new Vector2(axisX * 7f, rb.velocity.y);
+            if (Input.GetButtonDown("Jump") && IsGrounded())
+            {
+                //spriteRenderer.sprite = kbotR;
+                // anim.SetBool("IsRunning", false);
+                // anim.SetBool("IsJumping", true);
+                rb.velocity = new Vector2(rb.velocity.x, tilemap.localBounds.extents.y + 1);
+                jump.Play();
+            }
+            //-------- WALK CHANGE PIC -----------
+            if (Input.GetKeyDown("a") || Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                //spriteRenderer.sprite = kbotR;
+                spriteRenderer.flipX = true;
+                anim.SetBool("IsRunning", true);
+                anim.SetBool("IsJumping", false);
+                //left
+            }
+            else if (Input.GetKeyDown("d") || Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                //spriteRenderer.sprite = kbotR;
+                spriteRenderer.flipX = false;
+                anim.SetBool("IsRunning", true);
+                anim.SetBool("IsJumping", false);
+                //right
+            }
+            else if (Input.GetKeyDown("w") || Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                spriteRenderer.sprite = idle;
+                anim.SetBool("IsRunning", false);
+                anim.SetBool("IsJumping", true);
+            }
+            else if (!Input.anyKey)
+            {
+                spriteRenderer.sprite = idle;
+                anim.SetBool("IsRunning", false);
+                anim.SetBool("IsJumping", false);
+            }
+        } else
+        {
+            rb.velocity = new Vector2(0, 0);
+            spriteRenderer.sprite = idle;
+            anim.SetBool("IsRunning", false);
+            anim.SetBool("IsJumping", false);
+        }
       //-------- CORPSE CONTROL ------------
       //create new Corpse
       if(Input.GetKeyDown("return") && charges >= 1){
@@ -185,5 +207,10 @@ public class PlayerMovement : MonoBehaviour
         //reset Charges
         charges = chargeNum;
       }
+    }
+
+    public void playerMovement()
+    {
+        playerMove = !playerMove;
     }
 }

@@ -19,16 +19,19 @@ public class PauseMenu : MonoBehaviour
       pause.Play();
       pauseMenu.SetActive(true);
       Time.timeScale = 0f;
+        Debug.Log(": P)");
     }
 
     public void Resume(){
-      unPause.Play();
+        Debug.Log(":) R");
+        unPause.Play();
       pauseMenu.SetActive(false);
       Time.timeScale = 1f;
     }
 
     public void Home(){
-      Time.timeScale = 1f;
+        Debug.Log(":) H");
+        Time.timeScale = 1f;
       music = GameObject.FindGameObjectWithTag("Music");
       music.GetComponent<StartMusic>().StopMusic();
       music.GetComponent<StartMusic>().RestartMusic();

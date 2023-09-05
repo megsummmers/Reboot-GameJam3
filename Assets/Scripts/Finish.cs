@@ -19,15 +19,15 @@ public class Finish : MonoBehaviour
         music = GameObject.FindGameObjectWithTag("Music");
         music.GetComponent<StartMusic>().PauseMusic();
         victory.Play();
-        Invoke("CompleteLevel", 2f);
         //Time.timeScale = 0f;
-      }
+        Invoke("CompleteLevel", 2f);
+            collision.gameObject.GetComponent<PlayerMovement>().playerMovement();
+        }
     }
 
     private void CompleteLevel(){
         music = GameObject.FindGameObjectWithTag("Music");
         music.GetComponent<StartMusic>().PlayMusic();
-        //Time.timeScale = 1f;
         spawn.Play();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         

@@ -63,9 +63,9 @@ TagManager:
   - name: TerrainOverlay
     uniqueID: 3579230957
     locked: 0
-  - name: Overlay
-    uniqueID: 1299517121
-    locked: 0
   - name: Player
     uniqueID: 735456113
+    locked: 0
+  - name: Overlay
+    uniqueID: 1299517121
     locked: 0
